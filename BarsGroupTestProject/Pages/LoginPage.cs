@@ -41,10 +41,11 @@ public class LoginPage
         }
     }
 
-    public void Login(string? username, string? password)
+    public InventoryPage Login(string? username, string? password)
     {
         EnterUsername(username);
         EnterPassword(password);
         ClickLogin();
+        return new InventoryPage(_driver);
     }
 }

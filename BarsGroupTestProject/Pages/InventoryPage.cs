@@ -37,9 +37,10 @@ public class InventoryPage
        return _driver.FindElement(RemoveButton(productName)).Displayed;
     }
 
-    public void GoToShoppingCart()
+    public ShoppingCartPage GoToShoppingCart()
     {
         _driver.FindElement(_shoppingCartLink).Click();
+        return new ShoppingCartPage(_driver);
     }
 
     public void SortContainerClick()

@@ -12,13 +12,12 @@ public class SortTests : UiTestBase
     public void LowToHighSortTesting()
     {
         var loginPage = new LoginPage(Driver);
-        var inventoryPage = new InventoryPage(Driver);
-
+        
         Driver.Navigate().GoToUrl(Url);
         Driver.Manage().Window.Maximize();
 
         Debug.Assert(PerformanceGlitchUser != null, nameof(PerformanceGlitchUser) + " != null");
-        loginPage.Login(PerformanceGlitchUser.Login, PerformanceGlitchUser.Password);
+        var inventoryPage = loginPage.Login(PerformanceGlitchUser.Login, PerformanceGlitchUser.Password);
 
         Assert.Multiple(() =>
         {
@@ -37,13 +36,12 @@ public class SortTests : UiTestBase
     public void HighToLowSortTesting()
     {
         var loginPage = new LoginPage(Driver);
-        var inventoryPage = new InventoryPage(Driver);
-
+        
         Driver.Navigate().GoToUrl(Url);
         Driver.Manage().Window.Maximize();
 
         Debug.Assert(PerformanceGlitchUser != null, nameof(PerformanceGlitchUser) + " != null");
-        loginPage.Login(PerformanceGlitchUser.Login, PerformanceGlitchUser.Password);
+        var inventoryPage = loginPage.Login(PerformanceGlitchUser.Login, PerformanceGlitchUser.Password);
 
         Assert.Multiple(() =>
         {

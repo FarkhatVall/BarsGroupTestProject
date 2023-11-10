@@ -47,7 +47,7 @@ public class UiTestBase
         return _settings;
     }
 
-    public void StepNotificationInConsole(string stepName)
+    protected void StepNotificationInConsole(string stepName)
     {
         Console.WriteLine(stepName);
     }

@@ -13,13 +13,12 @@ public class ShoppingCartTests : UiTestBase
     {
         StepNotificationInConsole("Шаг 1:  Авторизоваться в приложении под указанной учетной записью");
         var loginPage = new LoginPage(Driver);
-        var inventoryPage = new InventoryPage(Driver);
-
+        
         Driver.Navigate().GoToUrl(Url);
         Driver.Manage().Window.Maximize();
 
         Debug.Assert(PerformanceGlitchUser != null, nameof(PerformanceGlitchUser) + " != null");
-        loginPage.Login(PerformanceGlitchUser.Login, PerformanceGlitchUser.Password);
+        var inventoryPage = loginPage.Login(PerformanceGlitchUser.Login, PerformanceGlitchUser.Password);
 
         Assert.Multiple(() =>
         {
@@ -37,9 +36,8 @@ public class ShoppingCartTests : UiTestBase
 
         StepNotificationInConsole("Шаг 3: Перейти в корзину нажатием кнопки сверху в правом углу в виде корзины");
         
-        inventoryPage.GoToShoppingCart();
-
-        var shoppingCartPage = new ShoppingCartPage(Driver);
+        var shoppingCartPage = inventoryPage.GoToShoppingCart();
+        
         Assert.Multiple(() =>
         {
             Assert.That(shoppingCartPage.IsShoppingCartPageOpened(), Is.True, 
@@ -61,14 +59,14 @@ public class ShoppingCartTests : UiTestBase
             $"Ожидали, что у товра {ProductTShirtName} кнопка ADD TO CART изменяется на REMOVE, однако кнопка REMOVE не найдена");
 
         StepNotificationInConsole("Шаг 6: Перейти в корзину нажатием кнопки сверху в правом углу в виде корзины");
-        inventoryPage.GoToShoppingCart();
+        var shoppingCartPageNew = inventoryPage.GoToShoppingCart();
         Assert.Multiple(() =>
         {
-            Assert.That(shoppingCartPage.IsShoppingCartPageOpened(), Is.True, 
+            Assert.That(shoppingCartPageNew.IsShoppingCartPageOpened(), Is.True, 
                 "Ожидали открытие окна корзины, однако страница не открылась");
-            Assert.That(shoppingCartPage.IsProductInCart(ProductJacketName), Is.True, 
+            Assert.That(shoppingCartPageNew.IsProductInCart(ProductJacketName), Is.True, 
                 $"Ожидали в окне корзины наличие добавленного товара {ProductJacketName}, однако {ProductJacketName} не найдена");
-            Assert.That(shoppingCartPage.IsProductInCart(ProductTShirtName), Is.True, 
+            Assert.That(shoppingCartPageNew.IsProductInCart(ProductTShirtName), Is.True, 
                 $"Ожидали в окне корзины наличие добавленного товара {ProductTShirtName}, однако {ProductTShirtName} не найдена");
         });
     }
